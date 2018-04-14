@@ -1076,8 +1076,13 @@ public final class RunContainer extends Container implements Cloneable {
   @Override
   public int hashCode() {
     int hash = 0;
-    for (int k = 0; k < nbrruns * 2; ++k) {
-      hash += 31 * hash + valueslength[k];
+    for (int k = 0; k < nbrruns * 2; k += 2) {
+      int value = valueslength[k];
+      int length = valueslength[k + 1];
+      for (int j = 0; j <= length; ++j) {
+        hash += 31 * hash + value + j;
+      }
+      // hash += 31 * hash + valueslength[k];
     }
     return hash;
   }
